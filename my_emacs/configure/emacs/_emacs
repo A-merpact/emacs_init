@@ -1,0 +1,5 @@
+(setq mass-root "C:/emacs_init/trunk/my_emacs")
+
+(add-to-list 'load-path (concat mass-root "/init"))
+ 
+(mapc 'load (directory-files (concat mass-root "/init") t "\\.el$"))

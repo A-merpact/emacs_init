@@ -1,0 +1,8 @@
+(add-hook 'nxml-mode-hook 'hs-minor-mode)
+(add-hook 'nxml-mode-hook 'mass-nxml-mode)
+(defun mass-nxml-mode()
+  (define-key nxml-mode-map (kbd "<f1> 1") 'mass-pretty-print-xml-region)
+  (define-key nxml-mode-map (kbd "<f1> 2") 'hs-hide-block)
+  (define-key nxml-mode-map (kbd "<f1> 3") 'hs-show-block)
+  (mass-enable-nxml-folding)              ;Enable folding (hs and outline)
+  )

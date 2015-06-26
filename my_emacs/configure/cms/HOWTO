@@ -1,0 +1,53 @@
+#Install Postgresql
+1. yum install postgresql-server
+2. yum install postgresql
+3. yum install postgresql-devel
+3. yum install python-psycopg2.x86_64
+4. service postgresql initdb
+5. edit pg_hba.conf and postgresql.conf file
+6. service postgresql start
+7. bbsinitdb
+
+#Install httpd
+1. yum install httpd
+2. [TODO] httpd conf
+3. yum install mod_wsgi
+
+#Install Python
+1. yum install python
+2. yum install python-devel.x86_64
+3. download ez_setup package
+4. python ez_setup.py
+5. easy_install pip
+
+#Install virutalenv
+1. pip install virtualenv
+2. pip install virtualenvwrapper
+
+#Create user for server
+1. adduser wwwpub -c 'WWW Content Publisher'
+2. mkdir -p /srv/www/django
+3. chown -R wwwpub:wwwpub /srv/www/django
+4. su - wwwpub
+5. cd /srv/www/django/
+6. mkdir myproj
+7. virtualenv myproj
+8. mkdir ~/.virtualenvs
+9. source /usr/bin/virtualenvwrapper.sh
+10. source myproj/bin/activate
+# It's like a sandbox, something working in this sandbox will depend on packages installed in this sandbox.
+
+#Install django & cms by wwwpub after source activate
+1. pip install django
+2. pip install django-cms
+3. pip install django-reversion
+4. pip install pil
+
+#Setup project
+1. "django-admin.py startproject AOBBS" under /srv/www/django/myproj
+2. create file named AOBBS.wsgi (content)
+3. change mysite.conf in httpd conf.d (content)
+4. Remove servername int httpd.conf
+
+
+

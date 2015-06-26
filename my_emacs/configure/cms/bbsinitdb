@@ -1,0 +1,27 @@
+#!/bin/bash
+#script used to create, initialize phoenix db
+#must be running as postgres 
+#call recreatedb
+
+dbuser=AccelopsBBS;
+dbname=AccelopsBBSDB;
+DBSVR_IP=localhost;
+PGCTL=/usr/bin/pg_ctl
+MAX_COUNT=240
+
+status=$(su -l postgres -c "$PGCTL status")
+if [ $? != 0 ]; then
+  echo "postgres is not running"
+  exit 1
+fi
+
+
+echo "Create DB/User"
+#create db user phoenix
+su -l postgres -c "psql -c \"create user $dbuser with password 'ProspectHills!23'\" ";
+
+#create db phoenix
+su -l postgres -c "psql -c \"create database $dbname with owner $dbuser\" ";
+
+
+su -l postgres -c "psql -c \"grant all on database $dbname to $dbuser\" ";

@@ -1,0 +1,1 @@
+sed 's/::SEP::/#/g' wmiMemory.txt | awk -F# '{for(i=1;i<NF;i++)print i.$i}' > wmiMemorynew.txt

@@ -1,0 +1,49 @@
+#!/bin/bash
+#script used to create, initialize phoenix db
+#must be running as postgres 
+#call recreatedb
+
+dbuser=phoenix;
+dbname=phoenixdb;
+DBSVR_IP=localhost;
+PGCTL=/usr/bin/pg_ctl
+MAX_COUNT=240
+
+#startdb
+echo "Start postgres DB"
+su -l postgres -c "postgres -D /var/lib/pgsql/data >logfile 2>&1 & ";
+sleep 60;
+
+count=0;
+while [ $count -lt $MAX_COUNT ]
+do
+  status=$(su -l postgres -c "$PGCTL status")
+  if [ $? = 0 ]; then
+     break;
+  fi
+  count=$((count+1));
+  sleep 1
+done
+
+echo "Create DB/User"
+#create db user phoenix
+su -l postgres -c "psql -c \"create user $dbuser with password 'J23lMBSo5DQ!'\" ";
+
+#create db phoenix
+su -l postgres -c "psql -c \"create database $dbname with owner $dbuser\" ";
+
+
+su -l postgres -c "psql -c \"grant all on database $dbname to $dbuser\" ";
+
+#create plsql lang in db
+su -l postgres -c "createlang -d \"$dbname\" plpgsql"
+
+su -l postgres -c "cd /opt/phoenix/deployment; psql -h $DBSVR_IP -U phoenix -f phoenix_db_init.sql $dbname" ;
+
+sleep 30;
+
+#sed -e "s/SECRET_CLT_PASSWD/ProspectHills/g" /opt/phoenix/deployment/phoenix_test_data.sql > /tmp/phx_test_data.sql
+#su -l postgres -c "psql -h localhost -U phoenix -f /tmp/phx_test_data.sql $dbname"
+#rm -f /tmp/phx_test_data.sql
+
+

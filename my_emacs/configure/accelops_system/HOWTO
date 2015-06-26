@@ -1,0 +1,47 @@
+1. Install machine
+   a. Get a machine, install CentOS 5.2 on it, maybe 5.5 also works, but don't use 6.0 now.
+   b. 8G Mem, 4 CPU, 100 GB Disk is suggested resources.
+
+2. Configure system
+   a. Configure /etc/hosts and restart network service
+      1. mapping your ip to your device name. Pass criterion will be, when you run command "hostname -i" it will show and only show your ip
+      2. Sample:
+      	 127.0.0.1               localhost.localdomain localhost
+   	 192.168.1.111           devAOKai
+   	 ::1             localhost6.localdomain6 localhost6
+   b. Configure /etc/selinux/config, disable selinux
+      1. Sample:
+      	 #SELINUX=enforcing
+	 SELINUX=disabled
+   c. Reboot
+
+3. Prepare install
+   a. Run script: prepare_dir.sh
+   b. Run command: yum upgrade (don't upgrade any thing, just download the list)
+   c. Run command: yum install -y subversion.
+   d. For time saving, please do followed two things at the same time.
+      1. check out code:
+      	 i. go to directory: /home/phoenix_dev/projects/trunk/
+      	 ii. svn co https://192.168.0.16/svn/trunk/phoenix
+      2. install devel lib
+      	 i. run script: install_devel_pkgs.sh
+   e. Run command: mount 192.168.0.30:/pub /pub
+   f. Run script: install_extra_pkgs.sh
+   g. Run script: install_extra_pkgs_sup.sh
+   g1. Run command: htpasswd -m /etc/httpd/accounts/passwds admin (passwd: admin)
+   h. Run command: scp /usr/lib64/libpq.so.5.1 from any other devices to /usr/lib64
+   i. Run command: ln -s /usr/lib64/libpq.so.5.1 /usr/lib64/libpq.so.5
+   j. Run command: cp /home/phoenix_dev/projects/phoenix/src/db/schema/*.sql /opt/phoenix/deployment
+   k. Run script: /home/phoenix_dev/projects/phoenix/build/va/jumpbox/phinitdb
+
+4. Install pkg
+   a. Config deploy file and conf file under /pub/release/ for your ip, there are a lot of samples there
+   b. Run command under /pub/release: deploy(your ip).sh (pkg file name like phxpkg64_3.5.1.1021.tgz)
+
+5. After install:
+   a. Run script: after_pkg.sh
+   b. Ask related people for license.
+
+
+NOTE:
+After this deployment, postgres database is under /var instead of /cmdb and it's the only difference with vm deployed system, but it won't affect anything.

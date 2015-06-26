@@ -1,0 +1,12 @@
+a. yum install tigervnc-server.x86_64
+b. open port 5901 tcp/udp
+c. set vncpasswd for root
+d. edit /etc/sysconfig/vncserver
+   VNCSERVERS="1:root"
+   VNCSERVERARGS[1]="-geometry 1440x800"
+e. service vncserver restart
+f. edit ~/.vnc/xstartup
+   #twm &    #comment this line
+   gnome-session &   #add this line
+g. service vncserver restart
+h. enable vncserver start

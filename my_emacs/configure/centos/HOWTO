@@ -1,0 +1,5 @@
+1. Install 163 repo
+2. yum upgrade
+3. Install vncserver
+4. Close fprintd
+   authconfig --disablefingerprint --update

@@ -1,0 +1,22 @@
+#!/bin/bash
+ yum install -y gcc
+ yum install -y gcc-c++
+ yum install -y gdb
+ yum install -y openldap-devel
+ yum install -y boost
+ yum install -y boost-devel
+ yum install -y zlib-devel
+ yum install -y curl-devel
+ yum install -y openssl-devel
+ yum install -y glibc-devel
+ yum install -y glib2-devel
+ yum install -y rpm-libs
+ yum install -y sysstat
+ yum install -y autoconf
+ yum install -y swig
+ yum install -y python
+ yum install -y python-devel
+ yum install -y pam
+ yum install -y pam-devel
+ yum install -y curl-devel
+ yum install -y gdb
