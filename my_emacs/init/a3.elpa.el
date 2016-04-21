@@ -27,7 +27,7 @@ ARCHIVE is the string name of the package archive.")
   (when (or (null package-filter-function)
             (funcall package-filter-function
                      (car package)
-                     (package-desc-vers (cdr package))
+                     (package--ac-desc-version (cdr package))
                      archive))
     ad-do-it))
 
